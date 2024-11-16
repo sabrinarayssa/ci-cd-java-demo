@@ -27,4 +27,4 @@ jobs:
           cache: maven
 
       - name: Install dependencies and run tests
-        run: mvn clean install
+        run: mvn -e clean install
