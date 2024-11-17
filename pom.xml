@@ -10,7 +10,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
-    <groupId>com.gustavoafernandes</groupId>
+    <groupId>gustavoafernandes</groupId>
     <artifactId>CICDJavaIntro</artifactId>
     <version>1.0-SNAPSHOT</version>
 
