@@ -1,0 +1,38 @@
+name: Java CD Maven Package
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Authenticate to GitHub Packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "<settings>
+          <servers>
+           <server>
+             <id>github</id>
+             <username>${{ github.actor }}</username>
+             <password>${{ secrets.GITHUB_TOKEN }}</password>
+           </server>
+          </servers>
+          </settings>" > $HOME/.m2/settings.xml
+
+      - name: Publish to GitHub Packages
+        run: mvn -e clean deploy
